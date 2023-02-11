@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>Editais e Licitações</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Fontawesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css" />
+        <!-- Fonte Raleway-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap" />
+        <!-- Fontawesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+        <!-- Import icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <!-- Design System de Governo-->
+        <link rel="stylesheet" href="/assets/gov.br/css/core.css">
+        <!-- favicoon -->
+        <link rel="shortcut icon" href="/assets/imagens/logoMorato-p.png" type="image/x-icon">
+        
+        <style>
+            .br-card {
+                border-radius: 19px!important
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class="template-base">
+
+            <header th:replace="utils/header"></header>
+
+            <main class="d-flex flex-fill mb-5" id="main">
+                <div class="container-lg">
+                    <div class="row">
+                        <sidebar th:replace="utils/sidebar"></sidebar>
+                        <div class="col mb-5">
+                            <div class="main-content pl-sm-3 mt-4" id="main-content">
+                                
+                                <!-- conteudo da página aqui -->
+                                <app id="app">
+                                    <overview th:replace="home/overview"></overview>  
+                                </app>
+                                <!-- fim do conteudo da página -->         
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer th:replace="fragments/footer"></footer>
+        </div>
+        <!--
+            <script src="/assets/js/model/files.js"></script>
+        -->            
+
+        <script src="/assets/js/model/edital.js"></script>
+        <script src="/assets/js/mask/mask.js"></script>     
+        <script src="/assets/js/app.js"></script>
+        <script src="/assets/js/core-init.js"></script>
+        <script src="/assets/js/model/axios.js"></script>
+        <script>
+            var app = document.getElementById('app');            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>Editais e Licitações</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Fontawesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css" />
+        <!-- Fonte Raleway-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap" />
+        <!-- Fontawesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+        <!-- Import icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <!-- Design System de Governo-->
+        <link rel="stylesheet" href="/assets/gov.br/css/core.css">
+        <!-- favicoon -->
+        <link rel="shortcut icon" href="/assets/imagens/logoMorato-p.png" type="image/x-icon">
+
+        <style>
+            .br-card {
+                border-radius: 19px!important
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="template-base">
+            <header th:replace="utils/header"></header>
+
+            <main class=" flex-fill mb-5" id="main">
+                <div class="container-lg">
+                    <div class="row">
+                        <sidebar th:replace="utils/sidebar"></sidebar>
+                        <div class="col mb-5">
+                            <div class="main-content pl-sm-3 mt-4" id="main-content">
+
+                                <!-- conteudo da página aqui -->
+                                <app id="app">
+
+
+                                        <div class="br-card">
+                                            <form action="/edital/add" method="POST"
+                                                  th:object="${edital}" class="p-3" id="form-edital"
+                                                  enctype="multipart/form-data">
+                                                <h3>Formulário de Cadastro do Edital</h3><hr>
+                                                <div class="row mb-3">
+                                                    <div class="br-input col-md-3 ">
+                                                        <label for="input-medium">Código</label>
+                                                        <input id="input-medium" type="text" th:field="*{codEdital}"  class="disabled rounder-md" readonly="true" />
+                                                    </div>
+                                                    <div class="br-input col-md-3 ">
+                                                        <label for="input-medium">N° do Processo</label>
+                                                        <input id="input-medium" onkeydown="return maskENumber(event)" maxlength="10" type="text" th:field="*{nEdital}"  class="rounder-md"/>
+                                                    </div>
+                                                    <div class="br-input  col-md-6 ">
+                                                        <label for="input-medium">Nome do Edital</label>
+                                                        <input id="input-medium" type="text" th:field="*{nomeEdital}" class="rounder-md"/>
+                                                    </div>
+                                                </div>    
+                                                <div class="row mb-3">          
+                                                    <div class="br-textarea col-md-12">
+                                                        <label for="textarea-id1">Descrição do Projeto</label>
+                                                        <textarea id="textarea-id1"  class="rounder-md" th:field="*{descricaoEdital}"></textarea>                
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="br-input  col-md-6 ">
+                                                        <label for="input-small" >Data da Publicação</label>
+                                                        <input id="input-small" type="text"  class="rounder-md" th:field="*{dataPublicacao}"/>
+                                                    </div>
+                                                    <div class="br-upload col-lg-6 col-md-6">
+                                                        <label class="upload-label" for="single-file">
+                                                            <span>Envio de arquivo</span>
+                                                        </label>
+                                                        <div class="multiple-input-files " style="display: none!important;" id="multiple-input-files">
+                                                            <input 
+                                                                class=" multiple-input-file" 
+                                                                id="attachment-0" 
+                                                                type="file"
+                                                                name="attachments[]" multiple
+                                                                onchange="showAttachments(this);"
+                                                                />
+                                                        </div>
+                                                        <button class="upload-button rounder-md" type="button" id="btn-input-file">
+                                                            <i class="fas fa-upload" aria-hidden="true"></i>
+                                                            <span>Selecione o arquivo</span>
+                                                        </button>
+                                                        <div class="upload-list" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md" id="upload-list-attachments">                  
+                                                    </div>
+                                                </div>
+                                                <div class="row align-items-center">
+
+                                                    <div class="d-inline-block mr-5 col-md-4">
+                                                        <div class="br-checkbox">
+                                                            <input id="h-checkbox-1" name="statusVisualizacao" type="checkbox"/>
+                                                            <label for="h-checkbox-1">Visualização para a lista de Editais no site</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-inline-block mr-5 col-md-3">
+                                                        <div class="br-checkbox">
+                                                            <input id="h-checkbox-2" name="statusAbertura" type="checkbox"/>
+                                                            <label for="h-checkbox-2">Edital Aberto</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <button class="br-button block primary mr-3" type="submit" id="btn-submit">                    
+                                                            Salvar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                </app>
+                                <!-- fim do conteudo da página -->  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer th:replace="fragments/footer"></footer>
+        </div>
+        <!--
+            <script src="/assets/js/model/files.js"></script>
+        -->   
+        <script src="/assets/gov.br/js/core.min.js"></script>
+        <script src="/assets/js/app.js"></script>
+        <script src="/assets/js/model/edital.js"></script>
+        <script src="/assets/js/mask/mask.js"></script>
+        <script src="/assets/js/model/axios.js"></script> 
+
+        <script>
+            var app = document.getElementById('app');
+        </script>
+    </body>
+</html>

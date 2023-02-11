@@ -1,0 +1,167 @@
+<div class="br-scrim-util foco" th:id="'modal-' + ${edital.codEdital}" data-scrim="true" >
+    <div class="br-modal large" style="border-radius: 19px">
+        <div class="br-modal-header">
+            <i class="fa-solid fa-folder-open"></i>
+            <span th:text="${edital.nomeEdital}"></span>
+        </div>
+        <div class="br-modal-body">
+            <form class="br-form" id="form-edital-request" th:object="${solicitacao}">
+                <div class="br-row">
+                    <div class="col-sm-12 mt-3">
+                        <div class="br-message info w-100" role="alert">
+                            <div class="icon">
+                                <i class="fas fa-info-circle fa-lg" aria-hidden="true"></i>
+                            </div>
+                            <div class="content">
+                                <span class="message-body" th:text="${edital.descricaoEdital}" style="font-size: 13px">
+                                    Descrição
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mt-3 mb-3 ">
+                        <p class="label mb-0">Solicitante</p>
+                        <div class="d-flex pt-2">
+                            <div class="br-radio  col-md-6">
+                                <input id="op-pf" type="radio" name="radio" value="pf" onchange="requesterToggle(this)"/>
+                                <label for="op-pf">Pessoa Física</label>
+                            </div>
+                            <div class="br-radio col-md-6 mt-0">
+                                <input id="op-pj" type="radio" name="radio" value="pj" onchange="requesterToggle(this)"/>
+                                <label for="op-pj">Pessoa Jurídica</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loading medium mt-4" style="display: none" id="loading-requester"></div>
+                    <div class="col-sm-12 mt-3" id="form-pf" style="display: none">
+                        <div class="col-sm-12 mb-3">
+                            <div class="br-input">
+                                <label for="input-icon-small">Nome Completo</label>
+                                <div class="input-group">
+                                    <div class="input-icon">
+                                        <i class="fas fa-user" aria-hidden="true"></i>
+                                    </div>
+                                    <input 
+                                        class="small" 
+                                        id="input-icon-small" 
+                                        th:field="*{pessoa.pessoaFisica.nomeCompleto}" 
+                                        type="text" 
+                                        placeholder="Nome completo"
+                                        maxlength="120" minlength="10"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-3">
+                            <div class="br-input">
+                                <label for="input-icon-small">Telefone de Contato</label>
+                                <div class="input-group">
+                                    <div class="input-icon">
+                                        <i class="fas fa-phone" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="small"
+                                      id="input-request-phone-pf"
+                                       type="tel"
+                                       th:field="*{pessoa.pessoaFisica.telefone}"
+                                       placeholder="Telefone com DDD"
+                                       maxlength="15" 
+                                       onkeyup="handlePhone(event)"
+                                      />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-3">
+                            <div class="br-input">
+                                <label for="input-icon-small">E-mail</label>
+                                <div class="input-group">
+                                    <div class="input-icon">
+                                        <i class="fas fa-at" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="small"
+                                     id="input-icon-small"
+                                      type="email" 
+                                      th:field="*{pessoa.pessoaFisica.email}"
+                                      placeholder="E-mail"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mt-3" id="form-pj" style="display: none">
+                        <div class="col-sm-12 mb-3">
+                            <div class="br-input">
+                                <label for="input-icon-small">Nome Completo do Representante</label>
+                                <div class="input-group">
+                                    <div class="input-icon"><i class="fas fa-user" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="small" id="input-icon-small" type="text"
+                                     placeholder="Nome Completo do Representante" 
+                                     maxlength="120" minlength="10"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-3" id="">
+                            <div class="br-input">
+                                <label for="input-icon-small">Razão Social</label>
+                                <div class="input-group">
+                                    <div class="input-icon">
+                                        <i class="fas fa-building" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="small" id="input-icon-small" type="text"
+                                     placeholder="Nome completo" maxlength="120" minlength="10"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-3">
+                            <div class="br-input">
+                                <label for="input-icon-small">Telefone de Contato</label>
+                                <div class="input-group">
+                                    <div class="input-icon">
+                                        <i class="fas fa-phone" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="small" id="input-request-phone-pj"
+                                     type="tel" placeholder="Telefone com DDD" 
+                                     maxlength="15" onkeyup="handlePhone(event)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-3">
+                            <div class="br-input">
+                                <label for="input-icon-small">E-mail</label>
+                                <div class="input-group">
+                                    <div class="input-icon">
+                                        <i class="fas fa-at" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="small" id="input-icon-small"
+                                     type="email" placeholder="E-mail"/>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div id="edital-request-title" class="text-center mt-3">
+
+                </div>
+                <div id="edital-request-files" class="justify-content-around d-flex flex-wrap mt-1">               
+
+     
+                </div>
+                <div class="br-modal-footer justify-content-center">
+                    <button 
+                        class="br-button secondary" 
+                        type="button" 
+                        id="scrimfechar" 
+                        data-dismiss="scrimexample" onclick="cancelRequest();">
+                        Cancelar
+                    </button>
+                    <button
+                     class="br-button primary mt-3 mt-sm-0 ml-sm-3"
+                      id="btn-requester-submit"
+                        type="submit"    
+                        >
+                        Solicitar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

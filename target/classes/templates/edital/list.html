@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <title>Editais e Licitações</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css" />
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap" />
+    <!-- Fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+    <!-- Import icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="/assets/gov.br/css/core.css">
+    <!-- favicoon -->
+    <link rel="shortcut icon" href="/assets/imagens/logoMorato-p.png" type="image/x-icon">
+
+    <style>
+        .br-card {
+            border-radius: 19px !important
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="template-base">
+
+        <header th:replace="utils/header"></header>
+
+        <main class="d-flex flex-fill mb-5" id="main">
+            <div class="container-lg">
+                <div class="row">
+                    <sidebar th:replace="utils/sidebar"></sidebar>
+                    <div class="col mb-5">
+                        <div class="main-content pl-sm-3 mt-4" id="main-content">
+
+                            <!-- conteudo da página aqui -->
+                            <app id="app">
+                                
+                                <div class="rounder-lg br-card">
+                                    <div class="card-header mt-3 ">
+                                        <div class="table-header  p-2" >
+                                            <div class="top-bar d-flex justify-content-md-between align-items-md-center">
+                                                <div class="table-title text-up-02 text-weight-semi-bold">Lista de Editais</div>
+                                                <div class="col-sm-4 col-lg-3 ">
+                                                    <div class="br-input small input-button">
+                                                      <input id="input-login-small" type="text" placeholder="Pesquise na tabela"/>
+                                                      <button class="br-button" type="button" aria-label="Botão de ação">
+                                                        <i class="fas fa-search" aria-hidden="true"></i>
+                                                      </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <!-- TABLE -->
+                                        <div id="response-editais">
+                                            <input type="hidden" value="5" id="input-offset"/>
+                                            <input type="hidden" value="1" id="input-page"/>
+                                            <div
+                                                class="br-table" id="table-editais" >
+                                                <div class="table-header"></div>
+                                                <table>
+                                                    <thead class="border-bottom">
+                                                        <tr class="text-nowrap text-base">
+                                                            <th scope="col">Nº do Processo</th>
+                                                            <th scope="col">Edital</th>
+                                                            <th scope="col">Publicação</th>
+                                                            <th scope="col">Ultima Atualização</th>
+                                                            <th scope="col">Visibilidade</th>
+                                                            <th scope="col">Editar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <div th:each="edital : ${editais}">
+                                                            <tr class="">
+                                                                <td th:data-th="${edital.nEdital}"
+                                                                    th:text="${edital.nEdital}" class="text-base">
+                                                                </td>
+                                                                <td th:data-th="${edital.nomeEdital}"
+                                                                    th:text="${edital.nomeEdital}"
+                                                                    class="text-base"></td>
+                                                                <td th:data-th="${edital.dataPublicacao}"
+                                                                    th:text="${#dates.format(edital.dataPublicacao, 'dd/MM/yyyy HH:mm')}"
+                                                                    class="text-nowrap "></td>
+                                                                <td th:data-th="${edital.dataPublicacao}"
+                                                                    th:text="${#dates.format(edital.dataUltimaAtualizacao, 'dd/MM/yyyy HH:mm')}"
+                                                                    class="text-nowrap "></td>
+                                                                <td th:data-th="${edital.statusVisualizacao}"
+                                                                    th:text="${edital.statusVisualizacao} ? 'Visivel' : 'Oculto'"
+                                                                    class="text-center">
+                                                                </td>
+                                                                <td>
+                                                                    <div class="text-nowrap ">
+                                                                        <a href=""><i
+                                                                                class="fa-solid fa-pen-to-square"
+                                                                                title="Editar Edital"></i>
+                                                                        </a>
+                                                                        <a href=""><i class="fa-solid fa-check"
+                                                                                title="Fechar Edital"></i>
+                                                                        </a>
+                                                                        <a href=""><i class="fa-solid fa-xmark"
+                                                                                title="Remover Edital"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </div>
+                                                    </tbody>
+                                                </table>
+                                                <div class="table-footer">
+                                                    <nav class="br-pagination" aria-label="Paginação de resultados" data-total="50" data-current="1" data-per-page="20">
+                                                        <div class="pagination-per-page">
+    
+    
+                                                        </div>
+                                                        <div class="pagination-go-to-page d-none d-sm-flex ml-auto">
+                                                            <div class="br-select">
+                                                                <div class="br-input">
+                                                                    <label for="go-to-selection-random-13292">Página [[${current}]] de [[${pages}]]</label>
+                                                                    <input id="go-to-selection-random-13292" type="text" placeholder=" "/>
+                                                                    <button class="br-button" type="button" aria-label="Exibir lista" tabindex="-1" data-trigger="data-trigger"><i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="br-list" tabindex="0">
+                                                                    <div class="br-item" tabindex="-1" th:each="i : ${#numbers.sequence(1, pages)}">
+                                                                        <div class="br-radio">
+                                                                            <input
+                                                                                th:id="'go-to-' + ${i}"
+                                                                                type="radio"
+                                                                                name="checkbox-page"
+                                                                                th:value="${i}"
+                                                                            />
+                                                                            <label th:for="'go-to-' + ${i}" th:text='${i}'></label>
+                                                                        </div>
+                                                                    </div>
+    
+                                                                </div>
+                                                            </div>
+                                                        </div><span class="br-divider d-none d-sm-block mx-3"></span>
+                                                        <div class="pagination-arrows ml-auto ml-sm-0">
+                                                            <button class="br-button circle" type="button" aria-label="Voltar página" id='btn-tab-prev' onclick='prevPage()'>
+                                                                <i class="fas fa-angle-left" aria-hidden="true"></i>
+                                                            </button>
+                                                            <button class="br-button circle" type="button" aria-label="Avançar página" id='btn-tab-next' onclick='nextPage();'>
+                                                                <i class="fas fa-angle-right" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </app>
+                            <!-- fim do conteudo da página -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="fragments/footer"></footer>
+    </div>
+    <!--
+            <script src="/assets/js/model/files.js"></script>
+        -->
+
+        <script src="/assets/gov.br/js/core.min.js"></script>
+        <script src="/assets/js/app.js"></script>
+        <script src="/assets/js/tableListEditais.js" ></script>
+        <script src="/assets/js/model/edital.js"></script>
+        <script src="/assets/js/mask/mask.js"></script>
+        <script src="/assets/js/model/axios.js"></script> 
+    <script>
+        var app = document.getElementById('app');            
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {     
+    background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    display: grid;
+    height: 100%;
+    width: 100%;
+    place-items: center;
+}
+
+
+.titulo{
+    background-color: #071D41;    
+    border-radius: 20px 20px 0 0;
+}
+
+.titulo > h1{
+    color: #fff;
+}
+
+.br-card {
+    border-radius: 22px 22px 20px 20px;
+    box-shadow:10px 13px 50px -13px rgba(0,0,0,1)
+}
+
+.showPassword{
+    color: #888888;
+}
+
+.showPassword:active{
+    color: black;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .cartao{
+        width: 95%;
+    }
+}

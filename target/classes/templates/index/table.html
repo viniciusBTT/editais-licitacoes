@@ -1,0 +1,40 @@
+
+<item th:each="edital : ${editais}">
+    <tr>
+        <td>
+            <button 
+                class="br-button " 
+                type="button" 
+                aria-label="Expandir/Retrair Rótulo 01"
+                th:onclick="'requestEdital(' + ${edital.codEdital} + ')'"
+                >
+                Solicitar
+                <i class="fas fa-chevron-down" aria-hidden="true" style="font-size: 10px"></i>
+            </button>
+        </td>
+        <td th:data-th="${edital.nomeEdital}" th:text="${edital.codEdital}">Edital</td>
+        <td th:data-th="${#dates.format(edital.dataPublicacao, 'dd/MM/yyyy HH:mm')}" th:text="${#dates.format(edital.dataPublicacao, 'dd/MM/yyyy HH:mm')}">Publicação</td>
+        <td th:data-th="${#dates.format(edital.dataUltimaAtualizacao, 'dd/MM/yyyy HH:mm')}" th:text="${#dates.format(edital.dataUltimaAtualizacao, 'dd/MM/yyyy HH:mm')}">Última alteração</td>
+    </tr>
+    <tr class="collapse">
+        <td th:id="'collapse-' + ${edital.codEdital}" aria-hidden="true" hidden="hidden" colspan="6">
+            <div class="br-row">
+                <div class="br-message info w-100" role="alert">
+                    <div class="icon">
+                        <i class="fas fa-info-circle fa-lg" aria-hidden="true"></i>
+                    </div>
+                    <div class="content">
+                        <span class="message-title" th:text="${edital.nomeEdital}">
+                            Informação.
+                        </span>
+                        <br>
+                        <span class="message-body" th:text="${edital.descricaoEdital}">
+                            Descrição
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </td>
+    </tr>
+</item>
